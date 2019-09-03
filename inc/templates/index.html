@@ -1,0 +1,179 @@
+{% extends 'layout.html' %}
+{% block content %}
+  <!--==========================
+    Hero Section
+  ============================-->
+  <section id="hero" class="wow fadeIn">
+    <div class="hero-container">
+      <h1>We are Web Addict</h1>
+      <h2>Freelancers for Startups, Businesses &amp; more...</h2>
+      <img src="{{ url_for('static', filename='frontend/img/hero-img.png') }}" alt="Hero Imgs">
+      <a href="#get-started" class="btn-get-started scrollto">Get Started</a>
+    </div>
+  </section><!-- #hero -->
+
+
+  <!--==========================
+    Features Section
+  ============================-->
+
+  <section id="features" class="padd-section text-center wow fadeInUp">
+    <div class="container">
+      <div class="row">
+
+        <div class="col-md-6 col-lg-3">
+          <div class="feature-block">
+            <img src="{{ url_for('static', filename='frontend/img/svg/paint-palette.svg') }}" alt="img" class="img-fluid">
+            <h4>creative design</h4>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+          <div class="feature-block">
+            <img src="{{ url_for('static', filename='frontend/img/svg/vector.svg') }}" alt="img" class="img-fluid">
+            <h4>Retina Ready</h4>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+          <div class="feature-block">
+            <img src="{{ url_for('static', filename='frontend/img/svg/design-tool.svg') }}" alt="img" class="img-fluid">
+            <h4>easy to use</h4>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="feature-block">
+            <img src="{{ url_for('static', filename='frontend/img/svg/code.svg') }}" alt="img" class="img-fluid">
+            <h4>clean codes</h4>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+   <!--==========================
+    Features Section
+  ============================-->
+
+  <section id="portfolio" class=" text-center wow fadeInUp">
+
+    <div class="container">
+      <div class="section-title text-center">
+        <h2>Work</h2>
+        <p class="separator">We provide only what is required for your business.</p>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        {% if projects %}
+        {% for project in projects %}
+        <div class="col-md-6 col-lg-3">
+          <div class="feature-block">
+          	<a target="_blank" href="{{ project.portfolio_link }}">
+            <img src="{{ url_for('static', filename='backend/img/' + project.portfolio_image) }}" alt="img" class="fullwidth_img">
+            <h4>{{ project.portfolio_name }}</h4>
+            </a>
+          </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+
+      </div>
+    </div>
+  </section>
+
+  <!--==========================
+    Contact Section
+  ============================-->
+  <section id="contact" class="padd-section wow fadeInUp">
+
+    <div class="container">
+      <div class="section-title text-center">
+        <h2>Get In Touch</h2>
+        <p class="separator">Use the form below to request a free quote. Please describe in as much detail as possible on your project, this will allow us to present an accurate quote. It also indicates the time and the medium in which you wish to be contacted in case we have questions regarding your request.</p>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row justify-content-center">
+
+        <div class="col-lg-3 col-md-4">
+
+          <div class="info">
+            <div class="email">
+              <i class="fa fa-envelope"></i>
+              <p>contact@webaddict.in</p>
+            </div>
+
+            <div>
+              <i class="fa fa-phone"></i>
+              <p>+91 9782 085243</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-5 col-md-8">
+          <div class="form">
+            {% with messages = get_flashed_messages(with_categories=True) %}
+              {% if messages %}
+                {% for category, message in messages %}
+                <div id="sendmessage">{{ message }}</div>
+                {% endfor %}
+              {% endif %}
+            {% endwith %}
+            <form action="/contact" method="post" role="form" class="contactForm">
+                {{ form.hidden_tag() }}
+                <div class="form-group">
+                    {% if form.name.errors %}
+                    {{ form.name(class='form-control is-invalid', placeholder='Your Name') }}
+                    {% for error in form.name.errors %}
+                        <div class="invalid-feedback"><span>{{ error }}</span></div>
+                    {% endfor %}
+                    {% else %}
+                        {{ form.name(class='form-control', placeholder='Your Name') }}
+                    {% endif %}
+                </div>
+              <div class="form-group">
+                    {% if form.email.errors %}
+                    {{ form.email(class='form-control is-invalid', placeholder='Your Email') }}
+                    {% for error in form.email.errors %}
+                        <div class="invalid-feedback"><span>{{ error }}</span></div>
+                    {% endfor %}
+                    {% else %}
+                        {{ form.email(class='form-control', placeholder='Your Email') }}
+                    {% endif %}
+              </div>
+              <div class="form-group">
+                    {% if form.subject.errors %}
+                    {{ form.subject(class='form-control is-invalid', placeholder='Your Subject') }}
+                    {% for error in form.subject.errors %}
+                        <div class="invalid-feedback"><span>{{ error }}</span></div>
+                    {% endfor %}
+                    {% else %}
+                        {{ form.subject(class='form-control', placeholder='Your Subject') }}
+                    {% endif %}
+              </div>
+              <div class="form-group">
+                    {% if form.message.errors %}
+                    {{ form.message(class='form-control is-invalid', placeholder='Your Message') }}
+                    {% for error in form.message.errors %}
+                        <div class="invalid-feedback"><span>{{ error }}</span></div>
+                    {% endfor %}
+                    {% else %}
+                        {{ form.message(class='form-control', placeholder='Your Message') }}
+                    {% endif %}
+              </div>
+              <div class="text-center">
+                  {{ form.submit(class='btn btn-primary btn-user btn-block') }}
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section><!-- #contact -->
+
+{% endblock %}

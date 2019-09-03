@@ -1,0 +1,67 @@
+{% extends 'dashboard/admin.html' %}
+{% block content %}
+
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+          <!-- Page Heading -->
+          <h1 class="h3 mb-2 text-gray-800">Projects</h1>
+          <p class="mb-4">Manage your all projects here.</p>
+
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">All Projects</h6>
+            </div>
+            <div class="card-body">
+                <form class="user" method="POST" action="" enctype="multipart/form-data">
+                    {{ form.hidden_tag() }}
+                    <div class="form-group">
+                        {% if form.portfolio_name.errors %}
+                        {{ form.portfolio_name(class='form-control form-control-user is-invalid', placeholder='Portfolio Name') }}
+                        {% for error in form.portfolio_name.errors %}
+                            <div class="invalid-feedback"><span>{{ error }}</span></div>
+                        {% endfor %}
+                        {% else %}
+                            {{ form.portfolio_name(class='form-control form-control-user', placeholder='Portfolio Name') }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {% if form.platform.errors %}
+                        {{ form.platform(class='form-control form-control-user is-invalid', placeholder='Technology') }}
+                        {% for error in form.platform.errors %}
+                            <div class="invalid-feedback"><span>{{ error }}</span></div>
+                        {% endfor %}
+                        {% else %}
+                            {{ form.platform(class='form-control form-control-user', placeholder='Technology') }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {% if form.portfolio_image.errors %}
+                        {{ form.portfolio_image(class='file-path validate', placeholder='Technology') }}
+                        {% for error in form.portfolio_image.errors %}
+                            <div class="invalid-feedback"><span>{{ error }}</span></div>
+                        {% endfor %}
+                        {% else %}
+                            {{ form.portfolio_image(class='file-path validate', placeholder='Technology') }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {% if form.portfolio_link.errors %}
+                        {{ form.portfolio_link(class='form-control form-control-user is-invalid', placeholder='Portfolio Link') }}
+                        {% for error in form.portfolio_link.errors %}
+                            <div class="invalid-feedback"><span>{{ error }}</span></div>
+                        {% endfor %}
+                        {% else %}
+                            {{ form.portfolio_link(class='form-control form-control-user', placeholder='Portfolio Link') }}
+                        {% endif %}
+                    </div>
+                    {{ form.submit(class='btn btn-primary btn-user btn-block') }}
+                    </form>
+            </div>
+          </div>
+
+        </div>
+        <!-- /.container-fluid -->
+{% endblock %}
